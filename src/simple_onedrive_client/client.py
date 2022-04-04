@@ -111,7 +111,7 @@ class SimpleOneDriveClient:
                 self.auth = json.loads(f.read())
                 self.refresh_token()
         except:
-            ...
+            self.auth = None
 
     def dumps(self):
         return json.dumps(self.auth)
