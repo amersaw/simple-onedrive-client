@@ -46,6 +46,7 @@ class SimpleOneDriveClient:
 
     def refresh_token(self):
         if self.get_token_payload()["exp"] < time.time():
+            print("Refreshing token")
             resp = requests.post(
                 url="https://login.microsoftonline.com/common/oauth2/v2.0/token",
                 data={
@@ -57,9 +58,12 @@ class SimpleOneDriveClient:
                     "refresh_token": self.auth["refresh_token"],
                 },
             )
+            print("Refreshing token done")
             self.auth = resp.json()
             if self.token_updated:
                 self.token_updated(self.dumps())
+        else:
+            print("Token is still valid")
 
     def complete_login_using_code(self, code):
         resp = requests.post(
