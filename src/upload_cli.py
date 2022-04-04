@@ -78,11 +78,11 @@ if __name__ == "__main__":
         secret=args["client_secret"],
         token_updated=dump_token_to_file,
     )
-
+    loaded_successfully = False
     if os.path.exists(args["token_fn"]):
         with open(args["token_fn"], "r") as f:
-            client.load_auth(token_fn=args["token_fn"])
-    if client.auth is None:
+            loaded_successfully = client.load_auth(token_fn=args["token_fn"])
+    if not loaded_successfully or client.auth is None:
         print(f"Please use the following url to login:{client.get_login_url()}")
         code = input("Please input the code:")
         client.complete_login_using_code(code)

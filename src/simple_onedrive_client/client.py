@@ -109,13 +109,15 @@ class SimpleOneDriveClient:
         print(token)
         return True
 
-    def load_auth(self, token_fn: str):
+    def load_auth(self, token_fn: str)->bool:
         try:
             with open(token_fn, "r") as f:
                 self.auth = json.loads(f.read())
                 self.refresh_token()
+                return True
         except:
             self.auth = None
+        return False
 
     def dumps(self):
         return json.dumps(self.auth)
