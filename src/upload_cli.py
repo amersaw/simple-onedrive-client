@@ -64,6 +64,7 @@ def parse_args():
         "token_fn": token_fn,
     }
 
+
 if __name__ == "__main__":
     args = parse_args()
     print(args)
@@ -71,6 +72,7 @@ if __name__ == "__main__":
     def dump_token_to_file(new_token: str):
         with open(args["token_fn"], "w") as f:
             f.write(new_token)
+
     client = SimpleOneDriveClient(
         client_id=args["client_id"],
         secret=args["client_secret"],
@@ -83,10 +85,10 @@ if __name__ == "__main__":
     if client.auth is None:
         print(f"Please use the following url to login:{client.get_login_url()}")
         code = input("Please input the code:")
-        client.complete_login_using_code(code)        
+        client.complete_login_using_code(code)
     res = client.upload_file(
         file_name=args["dst_fn"],
-        file_full_path=args["source_file_path"]
+        file_full_path=args["source_file_path"],
         one_drive_dest_path=args["dst_path"],
     )
-    print (res)
+    print(res)
